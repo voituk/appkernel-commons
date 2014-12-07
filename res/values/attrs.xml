@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="AwesomeText_FontFile">FontAwesome_MFB_v3.ttf</string>
+	
+    <declare-styleable name="AwesomeText">
+        <attr name="iconId" format="enum">
+            <enum name="none" value="0" />
+            <!-- FontAwesome Built-in icons -->
+            <enum name="fa_heart"           value="0xf004" />
+            <enum name="fa_cog"             value="0xf013" />
+            <enum name="fa_road"            value="0xf018" />
+           	<enum name="fa_facebook_square" value="0xf082" />
+            <enum name="fa_youtube_play"    value="0xf16A" />
+            <enum name="fa_android"         value="0xf17b" />
+            <enum name="fa_vk"              value="0xf189" />
+            <enum name="fa_share_square_o"  value="0xf045" />
+            <enum name="fa_check_square_o"  value="0xf046" />
+            <enum name="fa_info_circle"     value="0xf05a" />
+            <enum name="fa_phone"           value="0xf095" />
+            <enum name="fa_square_o"        value="0xf096" />
+            <enum name="fa_phone_square"    value="0xf098" />
+            <enum name="fa_globe"           value="0xf0ac" />
+            <enum name="fa_money"           value="0xf0d6" />
+            <enum name="fa_eur"             value="0xf153" />
+            <enum name="fa_ticket"          value="0xf145" />
+            <!-- MFB Custom Icons -->
+            <enum name="mfb_pax"              value="0x2000" />
+            <enum name="mfb_bike"             value="0x2001" />
+            <enum name="mfb_station"          value="0x2005" />
+            <enum name="mfb_seat"             value="0x202F" />
+            <enum name="mfb_bus_front"        value="0x2004"/>
+            <enum name="mfb_unattended_child" value="0x205F" />
+            <enum name="mfb_bus_right"        value="0x2007"/>
+            <enum name="mfb_bus_left"         value="0x2008"/>
+            <enum name="mfb_ic"               value="0xF074"/> <!-- In-fact it's fa_random -->
+            <!-- TODO: Rename these icons to fa_* notation -->
+            <enum name="icon_print"           value="0xF02F"/>
+            <enum name="icon_pencil"          value="0xF040" />
+        </attr>
+    </declare-styleable>
+    
+</resources>
