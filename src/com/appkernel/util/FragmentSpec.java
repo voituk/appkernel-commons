@@ -3,13 +3,18 @@ package com.appkernel.util;
 import java.io.Serializable;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 public class FragmentSpec {
 	final Bundle arguments = new Bundle();
 	final String clazz;
 	
-	public FragmentSpec(Class<? extends Fragment> clazz) {
+	/**
+	 * 
+	 * @param clazz - Should be class that extents android.support.v4.app.Fragment or android.app.Fragment  
+	 */
+	public FragmentSpec(@NonNull Class<?> clazz) {
 		this.clazz = clazz.getName();
 	}
 	
@@ -34,6 +39,11 @@ public class FragmentSpec {
 	
 	public FragmentSpec put(String key, Serializable value) {
 		arguments.putSerializable(key, value);
+		return this;
+	}
+	
+	public FragmentSpec put(String key, Parcelable value) {
+		arguments.putParcelable(key, value);
 		return this;
 	}
 	
