@@ -7,19 +7,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 public class FileCache extends Cache {
 
 
 	private final File		mCacheDir;
-	private final String	keySuffix;
+	private final String	mKeySuffix;
 
 	
 
-	public FileCache(File cacheDir, String keySuffix) {
+	public FileCache(@NonNull File cacheDir, @Nullable String keySuffix) {
 		mCacheDir = cacheDir;
-		this.keySuffix = keySuffix;
+		mKeySuffix = keySuffix;
 	}
 
 
@@ -123,8 +125,8 @@ public class FileCache extends Cache {
 
 
 
-	private File file(CharSequence key) {
-		return new File(mCacheDir, key + (keySuffix == null ? "" : "."+keySuffix)  +  ".fcache");
+	protected File file(CharSequence key) {
+		return new File(mCacheDir, key + (mKeySuffix == null || mKeySuffix.length() == 0 ? "" : "."+mKeySuffix)  +  ".fcache");
 	}
 
 
