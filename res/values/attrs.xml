@@ -39,4 +39,21 @@
         </attr>
     </declare-styleable>
     
+    
+    
+    <attr name="calculateBy" format="enum" >
+        <enum name="width" value="1" />
+        <enum name="height" value="2" />
+    </attr>
+    
+    <attr name="widthRatio" format="integer" min="0" />
+    <attr name="heightRatio" format="integer" min="0" />
+
+    <declare-styleable name="ImageViewByRatio">
+        <attr name="widthRatio" />
+        <attr name="heightRatio" />
+        <attr name="calculateBy" />
+    </declare-styleable>
+    
+    
 </resources>
