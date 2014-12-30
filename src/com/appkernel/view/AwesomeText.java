@@ -45,7 +45,7 @@ public class AwesomeText extends TextView {
     }
 
     public static CharSequence _text(CharSequence icon, CharSequence text) {
-        StringBuilder s = new StringBuilder();
+        final StringBuilder s = new StringBuilder();
 
         if (icon != null && icon.length() > 0) {
             s.append(icon).append("  ");
