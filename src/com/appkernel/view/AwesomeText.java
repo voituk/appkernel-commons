@@ -51,7 +51,7 @@ public class AwesomeText extends TextView {
             s.append(icon).append("  ");
         }
 
-        return s.append(text.toString().replaceAll("і", "i")); // replace Ukrainian i to latin i because FontAwesome do not support ukrainian one
+        return s.append(text);
     }
 
 
@@ -74,7 +74,7 @@ public class AwesomeText extends TextView {
     /**
      * Use this instead of Fucking final setText()!!!
      *
-     * @param text
+     * @param text Label
      */
     public void setTextWithIcon(CharSequence text) {
         setText(_text(icon, text));
