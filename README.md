@@ -27,12 +27,13 @@ Quick overvew:
  - `LocalBroadcasts`
 
 ***com.appkernel.view***
+
 TBD
 
 ***TODO:***
+
  - Add AutoLoading ListAdapter
  - Add AutoLoading GridAdapter
-
 
 
  To be continued...
