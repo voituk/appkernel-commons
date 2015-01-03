@@ -6,7 +6,6 @@ Set of useful Android helper-classes
 Quick overvew: 
 
 ***com.appkernel.io***
-
   - `Cache` - Abstract single threaded sync & async implementation of cache
   - `FileCache` - File-backed implementation of `Cache`
   - `IOUtils` - Simple work with IO-channels and Exception-free `close()` method for all types of classes
@@ -18,7 +17,6 @@ Quick overvew:
 
 
 ***com.appkernel.util***
-
  - `CollectionUtils` - Missing findFirts / findAll method for java collections
  - `Filterable` - interface for filtering
  - `FragmentSpec`
@@ -31,10 +29,8 @@ Quick overvew:
 TBD
 
 ***TODO:***
-
  - Add AutoLoading ListAdapter
  - Add AutoLoading GridAdapter
-
 
  To be continued...
  
