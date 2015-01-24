@@ -97,6 +97,7 @@ public class HttpApiRequestBuilder {
 
         if ("POST".equals(method) || "PUT".equals(method)) {
             builder.post(RequestBody.create(mediaType, content.toString()));
+
         } else if ("GET".equals(method)) {
             if (content != null && content.length()>0) {
                 newUrl += (newUrl.indexOf('?') > -1 ? "&" : "?") + content;

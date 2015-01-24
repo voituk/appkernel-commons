@@ -34,7 +34,7 @@ public class HttpApiClient {
     private final HttpApiResponseParser parser;
 
 
-    public HttpApiClient(HttpApiResponseParser parser) {
+    public HttpApiClient(HttpApiResponseParser parser, boolean debug) {
 
         if (parser == null) {
             throw new IllegalArgumentException("HttpApiResponseParser can not be null");
@@ -43,28 +43,29 @@ public class HttpApiClient {
         this.parser = parser;
 
 
+
         ok = new OkHttpClient();
 
-        /*if (BuildConfig.DEBUG) {
+        if (debug) {
             ok.interceptors().add(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request request = chain.request();
 
                     long t1 = System.nanoTime();
-                    Log.d(TAG, String.format("Sending request %s on %s%n%s",
-                            request.url(), chain.connection(), request.headers()));
+                    //Log.d(TAG, String.format("[%d] %s %s\n%s", request.hashCode(), request.method(), request.url(), request.headers()));
+                    Log.d(TAG, String.format("[%d] %s %s", request.hashCode(), request.method(), request.url()));
 
                     Response response = chain.proceed(request);
 
                     long t2 = System.nanoTime();
-                    Log.d(TAG, String.format("Received response for %s in %.1fms%n%s",
-                            response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+                    //Log.d(TAG, String.format("[%d] duration=%.1fms\n%s", response.request().hashCode(), (t2 - t1) / 1e6d, response.headers() ));
+                    Log.d(TAG, String.format("[%d] duration=%.1fms", response.request().hashCode(), (t2 - t1) / 1e6d ));
 
                     return response;
                 }
             });
-        }*/
+        }
 
         ok.setConnectTimeout(HTTP_CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS);
         ok.setReadTimeout(HTTP_SOCKET_READ_TIMEOUT, TimeUnit.MILLISECONDS);
@@ -77,7 +78,6 @@ public class HttpApiClient {
     <T> T call(final Request request, final Class<T> clazz) {
         try {
 
-            Log.d(TAG, BuildConfig.DEBUG + "");
             //Log.d(TAG, String.format("[%d] %s %s", request.hashCode(), request.method(), request.url()));
             final Response response = ok.newCall(request).execute();
 
