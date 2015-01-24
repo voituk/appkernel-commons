@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channel;
@@ -62,11 +64,24 @@ public class IOUtils {
 	}
 	
 	
-	public static void copyStreamToFile(InputStream inStream, File outFile) throws IOException {
+	public static void toFile(InputStream inStream, File outFile) throws IOException {
 		WritableByteChannel out = Channels.newChannel(new FileOutputStream(outFile));
 		ReadableByteChannel in = Channels.newChannel(inStream);
 		IOUtils.copyChannel(in, out, null);
 	}
+
+    public static String toString(InputStream stream) throws IOException {
+        int n;
+        char[] buffer = new char[1024 * 64];
+        final InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
+
+        final StringWriter writer = new StringWriter();
+        while (-1 != (n = reader.read(buffer))) {
+            writer.write(buffer, 0, n);
+        }
+
+        return writer.toString();
+    }
 	
 	
 	/**
