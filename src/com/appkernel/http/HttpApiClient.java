@@ -1,10 +1,8 @@
 package com.appkernel.http;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.appkernel.commons.BuildConfig;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -23,9 +21,9 @@ public class HttpApiClient {
 
 
     // TODO: Make these IO-timeouts configurable
-    private static final int HTTP_CONNECTION_TIMEOUT   = 45000; // Socket connection timeout
+    private static final int HTTP_CONNECTION_TIMEOUT = 45000; // Socket connection timeout
     private static final int HTTP_SOCKET_WRITE_TIMEOUT = 60000; // Socket write timeout
-    private static final int HTTP_SOCKET_READ_TIMEOUT  = 60000; // Socket read timeout
+    private static final int HTTP_SOCKET_READ_TIMEOUT = 60000; // Socket read timeout
 
     private static final String TAG = HttpApiClient.class.getName();
 
@@ -41,7 +39,6 @@ public class HttpApiClient {
         }
 
         this.parser = parser;
-
 
 
         ok = new OkHttpClient();
@@ -60,7 +57,7 @@ public class HttpApiClient {
 
                     long t2 = System.nanoTime();
                     //Log.d(TAG, String.format("[%d] duration=%.1fms\n%s", response.request().hashCode(), (t2 - t1) / 1e6d, response.headers() ));
-                    Log.d(TAG, String.format("[%d] duration=%.1fms", response.request().hashCode(), (t2 - t1) / 1e6d ));
+                    Log.d(TAG, String.format("[%d] duration=%.1fms", response.request().hashCode(), (t2 - t1) / 1e6d));
 
                     return response;
                 }
