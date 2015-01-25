@@ -82,8 +82,8 @@ public class HttpApiRequestBuilder {
         return this;
     }
 
-    public Request build() {
 
+    public Request build() {
         String newUrl = url;
 
         final Request.Builder builder = new Request.Builder()
