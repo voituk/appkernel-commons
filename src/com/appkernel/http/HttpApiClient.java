@@ -1,6 +1,7 @@
 package com.appkernel.http;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.squareup.okhttp.Interceptor;
@@ -70,9 +71,7 @@ public class HttpApiClient {
     }
 
 
-    public
-    @NonNull
-    <T> T call(final Request request, final Class<T> clazz) {
+    public @NonNull <T> T call(final Request request, final Class<T> clazz) {
         try {
 
             //Log.d(TAG, String.format("[%d] %s %s", request.hashCode(), request.method(), request.url()));
@@ -118,6 +117,11 @@ public class HttpApiClient {
             e.printStackTrace();
             return parser.parse(new HttpApiException(HttpApiException.ERR_UNKNOWN, e.getMessage()), clazz);
         }
+    }
+
+
+    public @Nullable Response call(final Request request) throws IOException {
+        return ok.newCall(request).execute();
     }
 
 
