@@ -26,9 +26,18 @@ Quick overvew:
 
 ***com.appkernel.view***
 
-TBD
+TODO: 
+
+***com.appkernel.http***
+
+TODO:
+
+***com.appkernel.v7***
+
+TODO: 
 
 ***TODO:***
+ - Finally migrate to gradle-supported project structure. Give up on Eclipse support
  - Add AutoLoading ListAdapter
  - Add AutoLoading GridAdapter
 
