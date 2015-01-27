@@ -1,10 +1,10 @@
 package com.appkernel.util;
 
-import java.io.Serializable;
-
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+
+import java.io.Serializable;
 
 public class FragmentSpec {
 	final Bundle arguments = new Bundle();

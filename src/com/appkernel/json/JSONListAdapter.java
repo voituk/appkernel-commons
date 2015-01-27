@@ -1,10 +1,5 @@
 package com.appkernel.json;
 
-import java.util.Collection;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Service;
 import android.content.Context;
 import android.text.TextUtils;
@@ -15,6 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.appkernel.json.JSONArrayIterator;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.Collection;
 
 public class JSONListAdapter extends ArrayAdapter<JSONObject> {
 	

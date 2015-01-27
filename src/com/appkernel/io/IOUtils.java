@@ -1,5 +1,8 @@
 package com.appkernel.io;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,9 +16,6 @@ import java.nio.channels.Channel;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
-
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 
 /**

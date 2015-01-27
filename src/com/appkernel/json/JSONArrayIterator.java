@@ -1,8 +1,8 @@
 package com.appkernel.json;
 
-import java.util.Iterator;
-
 import org.json.JSONArray;
+
+import java.util.Iterator;
 
 /**
  * Very narrow-case for Filterable iterator for JSONArray

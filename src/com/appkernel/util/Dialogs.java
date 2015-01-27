@@ -12,6 +12,7 @@ import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+
 import com.appkernel.commons.R;
 
 public class Dialogs {

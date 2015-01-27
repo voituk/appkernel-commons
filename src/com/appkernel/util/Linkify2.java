@@ -1,10 +1,5 @@
 package com.appkernel.util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.appkernel.v7.Patterns;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +13,11 @@ import android.text.util.Linkify.MatchFilter;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.appkernel.v7.Patterns;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Linkify2 {
 	
