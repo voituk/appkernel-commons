@@ -6,7 +6,6 @@ import com.squareup.okhttp.RequestBody;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Locale;
 
 /**
  * TODO: This class can not send JSON as a body, right now. Implement it.
@@ -39,42 +38,54 @@ public class HttpApiRequestBuilder {
         }
     }
 
+    // Non-static part
+
+    private static int URLENCODED  = 0;
+    private static int JSON        = 1;
+
 
     private String url;
     private String method;
 
-    private MediaType mediaType;
+    private int mediaTypeCode;
+    //private MediaType mediaType;
 
-    private StringBuilder content;
+    private StringBuilder urlEncodedContent;
+    private CharSequence jsonEncodedContent;
 
     public HttpApiRequestBuilder(String apiPath, Object... args) {
         super();
         url = String.format(apiPath, args);
         method = "GET";
+        mediaTypeCode = URLENCODED;
     }
 
     public HttpApiRequestBuilder post() {
         method = "POST";
-        mediaType = URL_ENCODED_MEDIA_TYPE;
         return this;
     }
 
     public HttpApiRequestBuilder put() {
         method = "PUT";
-        mediaType = URL_ENCODED_MEDIA_TYPE;
+        return this;
+    }
+
+    public HttpApiRequestBuilder json(CharSequence json) {
+        jsonEncodedContent = json;
+        mediaTypeCode = JSON;
         return this;
     }
 
 
     public HttpApiRequestBuilder add(String name, Object value) {
-        if (content == null) { // Lazy init
-            content = new StringBuilder();
+        if (urlEncodedContent == null) { // Lazy init
+            urlEncodedContent = new StringBuilder();
         }
-        if (content.length() > 0) {
-            content.append('&');
+        if (urlEncodedContent.length() > 0) {
+            urlEncodedContent.append('&');
         }
         try {
-            content.append(URLEncoder.encode(name, "UTF-8"))
+            urlEncodedContent.append(URLEncoder.encode(name, "UTF-8"))
                     .append('=')
                     .append(URLEncoder.encode(value==null ? "" : String.valueOf(value), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
@@ -97,15 +108,33 @@ public class HttpApiRequestBuilder {
         String newUrl = url;
 
         if ("POST".equals(method) || "PUT".equals(method)) {
-            builder.post(RequestBody.create(mediaType, content.toString()));
+
+            if (mediaTypeCode == JSON) {
+                builder.post(RequestBody.create(JSON_MEDIA_TYPE, jsonEncodedContent.toString()));
+                newUrl = appendToUrl(newUrl, urlEncodedContent);
+
+            } else if (mediaTypeCode == URLENCODED) {
+                builder.post(RequestBody.create(URL_ENCODED_MEDIA_TYPE, urlEncodedContent.toString()));
+            }
+
 
         } else if ("GET".equals(method)) {
-            if (content != null && content.length()>0) {
-                newUrl += (newUrl.indexOf('?') > -1 ? "&" : "?") + content;
-            }
+            newUrl = appendToUrl(newUrl, urlEncodedContent);
+            if (mediaTypeCode == JSON && !isEmpty(jsonEncodedContent))
+                throw new IllegalArgumentException("There should be no JSON body for GET request");
         }
 
         return  builder.url(newUrl).build();
     }
 
+
+    private static boolean isEmpty(final CharSequence s) {
+        return s == null || s.length()==0;
+    }
+
+    private static String appendToUrl(String url, CharSequence value) {
+        if (isEmpty(value))
+            return url;
+        return url + ( url.indexOf('?') > -1 ? "&" : "?" ) + value;
+    }
 }
