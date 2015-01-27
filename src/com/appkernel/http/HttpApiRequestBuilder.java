@@ -13,28 +13,29 @@ import java.util.Locale;
  */
 public class HttpApiRequestBuilder {
 
-    public static final MediaType URL_ENCODED_MEDIA_TYPE = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
-    public static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
-
-    private static String apiRoot;
-    private static String userAgent;
-    private static String acceptLanguage;
+    private static final MediaType URL_ENCODED_MEDIA_TYPE = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
+    private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 
 
-    // TODO: yeah, kinda bad design, but dunno what to do with it right now
-    synchronized public static void init(String apiRoot, String userAgent) {
-        HttpApiRequestBuilder.apiRoot = apiRoot;
-        HttpApiRequestBuilder.userAgent = userAgent;
+    public static interface RequestBuilderFactory {
+        public Request.Builder newBuilder();
+    }
+
+    private static final RequestBuilderFactory DEFAULT_BUILDER_FACTORY = new RequestBuilderFactory() {
+        @Override
+        public Request.Builder newBuilder() {
+            return new Request.Builder();
+        }
+    };
 
 
-        String lang = Locale.getDefault().getLanguage();
-        if (lang == null || lang.length() == 0)
-            lang = "en";
+    private static RequestBuilderFactory requestFactory = DEFAULT_BUILDER_FACTORY;
 
-        if (lang.equals("en")) {
-            HttpApiRequestBuilder.acceptLanguage = "en;q=0.5";
-        } else {
-            HttpApiRequestBuilder.acceptLanguage = lang + ", en;q=0.5";
+
+    //
+    public static void setRequestBuilderFactory(final RequestBuilderFactory factory) {
+        synchronized (HttpApiRequestBuilder.class) {
+            requestFactory = factory;
         }
     }
 
@@ -48,7 +49,7 @@ public class HttpApiRequestBuilder {
 
     public HttpApiRequestBuilder(String apiPath, Object... args) {
         super();
-        url = apiRoot + String.format(apiPath, args);
+        url = String.format(apiPath, args);
         method = "GET";
     }
 
@@ -84,16 +85,16 @@ public class HttpApiRequestBuilder {
 
 
     public Request build() {
-        String newUrl = url;
-
-        final Request.Builder builder = new Request.Builder()
-                .header("Accept", "application/json");
+        final RequestBuilderFactory factory;
 
         synchronized (HttpApiRequestBuilder.class) {
-            builder
-                .header("User-Agent", userAgent)
-                .header("Accept-Language", acceptLanguage);
+            factory = requestFactory;
         }
+
+        final Request.Builder builder = factory.newBuilder();
+
+
+        String newUrl = url;
 
         if ("POST".equals(method) || "PUT".equals(method)) {
             builder.post(RequestBody.create(mediaType, content.toString()));
@@ -106,4 +107,5 @@ public class HttpApiRequestBuilder {
 
         return  builder.url(newUrl).build();
     }
+
 }
