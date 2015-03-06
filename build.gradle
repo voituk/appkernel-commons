@@ -18,21 +18,6 @@ android {
         }
     }
 
-    sourceSets {
-
-        main {
-            assets.srcDirs       = ['assets']
-            res.srcDirs          = ['res']
-            aidl.srcDirs         = ['src']
-            resources.srcDirs    = ['src']
-            renderscript.srcDirs = ['src']
-            java.srcDirs         = ['src']
-            manifest.srcFile 'AndroidManifest.xml'
-
-        }
-
-    }
-
     lintOptions {
         // TODO: fix errors and reenable.
         abortOnError false
